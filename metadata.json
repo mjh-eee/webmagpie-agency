@@ -1,0 +1,6 @@
+{
+  "name": "WebMagpie Agency Booking and Management Platform",
+  "description": "A comprehensive booking and management platform for WebMagpie, a premier web development, SEO, and digital marketing agency.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Outfit", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  /* Theme overrides to map everything cleanly to a Premium Digital Agency aesthetic */
+  --color-teal-50: #EEF2FF;
+  --color-teal-100: #E0E7FF;
+  --color-teal-200: #C7D2FE;
+  --color-teal-300: #A5B4FC;
+  --color-teal-400: #818CF8;
+  --color-teal-500: #6366F1;
+  --color-teal-600: #4F46E5;
+  --color-teal-700: #4338CA;
+  --color-teal-800: #3730A3;
+  --color-teal-900: #312E81;
+  --color-teal-950: #1E1B4B;
+
+  --color-indigo-50: #F5F3FF;
+  --color-indigo-100: #EDE9FE;
+  --color-indigo-200: #DDD6FE;
+  --color-indigo-300: #C4B5FD;
+  --color-indigo-400: #A78BFA;
+  --color-indigo-500: #8B5CF6;
+  --color-indigo-600: #7C3AED;
+  --color-indigo-700: #6D28D9;
+  --color-indigo-800: #5B21B6;
+  --color-indigo-900: #4C1D95;
+
+  --color-slate-50: #FAFAFA;
+  --color-slate-100: #F4F4F5;
+  --color-slate-200: #E4E4E7;
+  --color-slate-300: #D4D4D8;
+  --color-slate-400: #A1A1AA;
+  --color-slate-500: #71717A;
+  --color-slate-600: #52525B;
+  --color-slate-700: #3F3F46;
+  --color-slate-800: #27272A;
+  --color-slate-900: #18181B;
+  --color-slate-950: #09090B;
+}
+
+/* Custom Base styles to enforce the modern, high-contrast Agency design system */
+@layer base {
+  body {
+    background-color: #FAFAFA;
+    color: #18181B;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* Make all headers use bold, clean, premium tech geometric display typography */
+  h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: "Outfit", sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  
+  /* Smooth transitions for a native, interactive feel */
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, transform;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-duration: 300ms;
+  }
+}
+
+@layer utilities {
+  .card-shadow {
+    box-shadow: 0 10px 40px -15px rgba(79, 70, 229, 0.08);
+  }
+  
+  .glow-hover {
+    box-shadow: 0 0 0 0px rgba(79, 70, 229, 0);
+  }
+  .glow-hover:hover {
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+  }
+}
