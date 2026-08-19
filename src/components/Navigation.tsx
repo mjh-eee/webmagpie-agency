@@ -38,7 +38,7 @@ export default function Navigation({
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/90 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
+    <nav className=" sticky top-0 z-50 w-full bg-white/90 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
@@ -53,14 +53,14 @@ export default function Navigation({
               <span className="font-serif text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 block transition-colors leading-none">
                 WebMagpie
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 block mt-0.5">
+              <span className=" text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 block mt-0.5">
                 Digital Agency
               </span>
             </div>
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1.5">
+          <div className=" hidden lg:flex items-center gap-1.5">
             {navItems.map((item) => (
               <button
                 key={item.id}

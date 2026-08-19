@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&family=Smooch+Sans:wght@100..900&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Outfit", sans-serif;
+  --font-serif:"Share Tech", sans-serif;
   --font-sans: "Plus Jakarta Sans", sans-serif;
+
 
   /* Theme overrides to map everything cleanly to a Premium Digital Agency aesthetic */
   --color-teal-50: #EEF2FF;
@@ -48,13 +50,13 @@
   body {
     background-color: #FAFAFA;
     color: #18181B;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Share Tech", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   
   /* Make all headers use bold, clean, premium tech geometric display typography */
   h1, h2, h3, h4, h5, h6, .font-serif {
-    font-family: "Outfit", sans-serif;
+    font-family: "Share Tech", sans-serif;
     font-weight: 800;
     letter-spacing: -0.03em;
   }

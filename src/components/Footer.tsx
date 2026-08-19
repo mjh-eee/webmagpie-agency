@@ -35,7 +35,7 @@ export default function Footer({ settings, setActiveTab, onSubscribeNewsletter }
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-20 pb-10 border-t border-slate-800 transition-colors duration-300">
+    <footer className=" bg-slate-900 text-slate-300 pt-20 pb-10 border-t border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 pb-16 border-b border-slate-800">
           
@@ -46,7 +46,7 @@ export default function Footer({ settings, setActiveTab, onSubscribeNewsletter }
                 <Sparkles className="w-5.5 h-5.5 fill-white/10" />
               </div>
               <div>
-                <span className="font-bold text-lg leading-tight tracking-tight text-white block">
+                <span className="font-serif font-bold text-lg leading-tight tracking-tight text-white block">
                   {settings.clinicName || 'WebMagpie'}
                 </span>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-teal-400 block -mt-1">
