@@ -5,7 +5,7 @@ import {
   ArrowRight, Check, X, ChevronRight, Calendar, DollarSign, Award, Star, Search, Filter,
   Download, LayoutDashboard, Trash2, Plus, MessageSquare, ChevronDown, ChevronUp, AlertCircle, FileText
 } from 'lucide-react';
-
+import { getWebsiteData, login, register, getUserAppointments, bookAppointment, cancelAppointment, submitContactMessage, subscribeNewsletter } from './localData';
 import { Doctor, Department, Appointment, Blog, ContactMessage, User as UserType, ClinicSettings, FAQ, Testimonial, GalleryItem } from './types';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -109,45 +109,60 @@ export default function App() {
       fetchUserAppointments();
     }
   }, [token, user]);
-  
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Vite
-  // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Create React App
-  
-  const fetchWebsiteData = async () => {
-    try {
-      const [resDocs, resDepts, resBlogs, resTestimonials, resGallery, resFaqs, resSettings] = await Promise.all([
-        fetch(`${API_BASE_URL}/api/doctors`),
-        fetch(`${API_BASE_URL}/api/departments`),
-        fetch(`${API_BASE_URL}/api/blogs`),
-        fetch(`${API_BASE_URL}/api/testimonials`),
-        fetch(`${API_BASE_URL}/api/gallery`),
-        fetch(`${API_BASE_URL}/api/faqs`),
-        fetch(`${API_BASE_URL}/api/settings`)
-      ]);
-  
-      if (resDocs.ok) setDoctors(await resDocs.json());
-      if (resDepts.ok) setDepartments(await resDepts.json());
-      if (resBlogs.ok) setBlogs(await resBlogs.json());
-      if (resTestimonials.ok) setTestimonials(await resTestimonials.json());
-      if (resGallery.ok) setGallery(await resGallery.json());
-      if (resFaqs.ok) setFaqs(await resFaqs.json());
-      if (resSettings.ok) setSettings(await resSettings.json());
-    } catch (e) {
-      console.error('Error fetching agency collections:', e);
-    }
-  };
 
-  const fetchUserAppointments = async () => {
-    try {
-      const res = await fetch('/api/appointments', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (res.ok) {
-        setUserAppointments(await res.json());
-      }
-    } catch (e) {
-      console.error('Error fetching bookings:', e);
-    }
+  // const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; 
+  
+  // const fetchWebsiteData = async () => {
+  //   try {
+  //     const [resDocs, resDepts, resBlogs, resTestimonials, resGallery, resFaqs, resSettings] = await Promise.all([
+  //       fetch(`${API_BASE_URL}/api/doctors`),
+  //       fetch(`${API_BASE_URL}/api/departments`),
+  //       fetch(`${API_BASE_URL}/api/blogs`),
+  //       fetch(`${API_BASE_URL}/api/testimonials`),
+  //       fetch(`${API_BASE_URL}/api/gallery`),
+  //       fetch(`${API_BASE_URL}/api/faqs`),
+  //       fetch(`${API_BASE_URL}/api/settings`)
+  //     ]);
+  
+  //     if (resDocs.ok) setDoctors(await resDocs.json());
+  //     if (resDepts.ok) setDepartments(await resDepts.json());
+  //     if (resBlogs.ok) setBlogs(await resBlogs.json());
+  //     if (resTestimonials.ok) setTestimonials(await resTestimonials.json());
+  //     if (resGallery.ok) setGallery(await resGallery.json());
+  //     if (resFaqs.ok) setFaqs(await resFaqs.json());
+  //     if (resSettings.ok) setSettings(await resSettings.json());
+  //   } catch (e) {
+  //     console.error('Error fetching agency collections:', e);
+  //   }
+  // };
+
+const fetchWebsiteData = () => {
+  const data = getWebsiteData();
+  setDoctors(data.doctors);
+  setDepartments(data.departments);
+  setBlogs(data.blogs);
+  setTestimonials(data.testimonials);
+  setGallery(data.gallery);
+  setFaqs(data.faqs);
+  setSettings(data.settings);
+};
+
+  // const fetchUserAppointments = async () => {
+  //   try {
+  //     const res = await fetch('/api/appointments', {
+  //       headers: { 'Authorization': `Bearer ${token}` }
+  //     });
+  //     if (res.ok) {
+  //       setUserAppointments(await res.json());
+  //     }
+  //   } catch (e) {
+  //     console.error('Error fetching bookings:', e);
+  //   }
+  // };
+
+  const fetchUserAppointments = () => {
+    if (!user) return;
+    setUserAppointments(getUserAppointments(user.id, user.role === 'admin'));
   };
 
   const handleAuthSuccess = (newToken: string, authenticatedUser: UserType) => {
@@ -191,95 +206,134 @@ export default function App() {
     }
 
     try {
-      const response = await fetch('/api/appointments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          doctorId: bookingDoc.id,
-          departmentId: bookingDoc.departmentId,
-          date: bookingForm.date,
-          timeSlot: bookingForm.timeSlot,
-          notes: bookingForm.notes,
-          patientName: bookingForm.patientName,
-          patientEmail: bookingForm.patientEmail,
-          patientPhone: bookingForm.patientPhone
-        })
+      
+      // const response = await fetch('/api/appointments', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${token}`
+      //   },
+      //   body: JSON.stringify({
+      //     doctorId: bookingDoc.id,
+      //     departmentId: bookingDoc.departmentId,
+      //     date: bookingForm.date,
+      //     timeSlot: bookingForm.timeSlot,
+      //     notes: bookingForm.notes,
+      //     patientName: bookingForm.patientName,
+      //     patientEmail: bookingForm.patientEmail,
+      //     patientPhone: bookingForm.patientPhone
+      //   })
+      // });
+
+      // const data = await response.json();
+      // if (!response.ok) {
+      //   throw new Error(data.error || 'Booking failed');
+      // }
+
+      // setBookingSuccessApt(data);
+      // fetchUserAppointments();
+      // setActiveTab('booking-success');
+
+      const result = bookAppointment(user!.id, {
+        doctorId: bookingDoc.id,
+        departmentId: bookingDoc.departmentId,
+        date: bookingForm.date,
+        timeSlot: bookingForm.timeSlot,
+        notes: bookingForm.notes,
+        patientName: bookingForm.patientName,
+        patientEmail: bookingForm.patientEmail,
+        patientPhone: bookingForm.patientPhone
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Booking failed');
+      if ('error' in result) {
+        setBookingError(result.error);
+        return;
       }
-
-      setBookingSuccessApt(data);
+      setBookingSuccessApt(result.appointment);
       fetchUserAppointments();
       setActiveTab('booking-success');
-    } catch (err: any) {
+    } 
+    
+    catch (err: any) {
       setBookingError(err.message || 'An error occurred during slot booking.');
     }
   };
 
+
+
   // Cancel Patient booking
-  const handleCancelBooking = async (aptId: string) => {
+  // const handleCancelBooking = async (aptId: string) => {
+  //   if (!window.confirm('Cancel this consultation slot? This operation is irreversible.')) return;
+  //   try {
+  //     const res = await fetch(`/api/appointments/${aptId}/status`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`
+  //       },
+  //       body: JSON.stringify({ status: 'cancelled' })
+  //     });
+  //     if (res.ok) {
+  //       fetchUserAppointments();
+  //     }
+  //   } catch (e) {
+  //     console.error('Error cancelling appointment:', e);
+  //   }
+  // };
+  const handleCancelBooking = (aptId: string) => {
     if (!window.confirm('Cancel this consultation slot? This operation is irreversible.')) return;
-    try {
-      const res = await fetch(`/api/appointments/${aptId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ status: 'cancelled' })
-      });
-      if (res.ok) {
-        fetchUserAppointments();
-      }
-    } catch (e) {
-      console.error('Error cancelling appointment:', e);
-    }
+    if (cancelAppointment(aptId)) fetchUserAppointments();
   };
 
   // Submit generic contact message
-  const handleContactSubmit = async (e: React.FormEvent) => {
+  // const handleContactSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await fetch('/api/contact', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(contactForm)
+  //     });
+  //     if (res.ok) {
+  //       setContactSuccess(true);
+  //       setContactForm({ name: '', email: '', subject: '', message: '' });
+  //       setTimeout(() => setContactSuccess(false), 5000);
+  //     }
+  //   } catch (e) {
+  //     console.error('Error delivering support query:', e);
+  //   }
+  // };
+  const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactForm)
-      });
-      if (res.ok) {
-        setContactSuccess(true);
-        setContactForm({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setContactSuccess(false), 5000);
-      }
-    } catch (e) {
-      console.error('Error delivering support query:', e);
-    }
+    submitContactMessage(contactForm);
+    setContactSuccess(true);
+    setContactForm({ name: '', email: '', subject: '', message: '' });
+    setTimeout(() => setContactSuccess(false), 5000);
   };
 
   // Newsletter action proxy
+  // const handleSubscribeNewsletter = async (email: string): Promise<boolean> => {
+  //   try {
+  //     const res = await fetch('/api/newsletter', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ email })
+  //     });
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       if (settings) {
+  //         setSettings({ ...settings, newsletterCount: data.count });
+  //       }
+  //       return true;
+  //     }
+  //     return false;
+  //   } catch {
+  //     return false;
+  //   }
+  // };
   const handleSubscribeNewsletter = async (email: string): Promise<boolean> => {
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (settings) {
-          setSettings({ ...settings, newsletterCount: data.count });
-        }
-        return true;
-      }
-      return false;
-    } catch {
-      return false;
-    }
+    const count = subscribeNewsletter();
+    if (settings) setSettings({ ...settings, newsletterCount: count });
+    return true;
   };
 
   // Initiate booking from Doctor Card
