@@ -1,10 +1,11 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech&family=Smooch+Sans:wght@100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Share+Tech&family=Smooch+Sans:wght@100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Share+Tech&family=Smooch+Sans:wght@100..900&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-serif:"Share Tech", sans-serif;
+  --font-serif:"Nunito", sans-serif;
   --font-sans: "Plus Jakarta Sans", sans-serif;
 
 
@@ -50,13 +51,13 @@
   body {
     background-color: #FAFAFA;
     color: #18181B;
-    font-family: "Share Tech", sans-serif;
+    font-family: "Nunito", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   
   /* Make all headers use bold, clean, premium tech geometric display typography */
   h1, h2, h3, h4, h5, h6, .font-serif {
-    font-family: "Share Tech", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 800;
     letter-spacing: -0.03em;
   }

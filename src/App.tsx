@@ -109,19 +109,22 @@ export default function App() {
       fetchUserAppointments();
     }
   }, [token, user]);
-
+  
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Vite
+  // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Create React App
+  
   const fetchWebsiteData = async () => {
     try {
       const [resDocs, resDepts, resBlogs, resTestimonials, resGallery, resFaqs, resSettings] = await Promise.all([
-        fetch('/api/doctors'),
-        fetch('/api/departments'),
-        fetch('/api/blogs'),
-        fetch('/api/testimonials'),
-        fetch('/api/gallery'),
-        fetch('/api/faqs'),
-        fetch('/api/settings')
+        fetch(`${API_BASE_URL}/api/doctors`),
+        fetch(`${API_BASE_URL}/api/departments`),
+        fetch(`${API_BASE_URL}/api/blogs`),
+        fetch(`${API_BASE_URL}/api/testimonials`),
+        fetch(`${API_BASE_URL}/api/gallery`),
+        fetch(`${API_BASE_URL}/api/faqs`),
+        fetch(`${API_BASE_URL}/api/settings`)
       ]);
-
+  
       if (resDocs.ok) setDoctors(await resDocs.json());
       if (resDepts.ok) setDepartments(await resDepts.json());
       if (resBlogs.ok) setBlogs(await resBlogs.json());
@@ -328,7 +331,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-teal-500 selection:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-serif selection:bg-teal-500 selection:text-white transition-colors duration-300">
       
       {/* Dynamic Header */}
       <Navigation
